@@ -13,11 +13,11 @@ HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=5000
+HISTFILESIZE=10000
 
 # Show one line of context above search result. Display codes.
-LESS='-j2 -a -R'
+export LESS='-aR'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -39,6 +39,9 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 else
     color_prompt=
 fi
+
+# Don't want Ctrl-S to mess up readline i-search (forward search).
+stty stop ''
 
 # Support git-aware shell prompt
 function show_git_branch {
@@ -96,9 +99,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-# RVM (jchia)
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export PYTHONSTARTUP=~/.pythonrc
 
